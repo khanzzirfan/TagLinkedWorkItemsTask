@@ -1,11 +1,12 @@
 {
-    "id": "5d203600-ac29-495a-931f-04b26bb91a4f",
-    "name": "Tag Linked Work Items",
-    "friendlyName": "Tag Linked Work Items",
-    "description": "Automatically add specified tag to all work items associated with build or release",
+    "id": "d9f1c5e2-3b4a-4c8b-9f7e-2a1b3c4d6e7f",
+    "name": "Tag Release Work Items-Modal-V1",
+    "friendlyName": "Tag Release Work Items-Modal-V1",
+    "description": "Automatically add specified tag to all work items associated with build or release. Also includes filtering of workitems by regex",
     "helpMarkDown": "",
     "category": "Utility",
-    "author": "Artem Sergeev",
+    "visibility": ["Build", "Release"],
+    "author": "irfankhan",
     "version": {
         "Major": 0,
         "Minor": 40,
@@ -31,6 +32,15 @@
             "defaultValue": "",
             "required": true,
             "helpMarkDown": "Specify a tag that will be added to work items"
+        },
+        {
+            "name": "filterWorkItemsById",
+            "type": "string",
+            "label": "Filter work items by ID using regex format. Example: ^(1|2|3)$",
+            "defaultValue": "",
+            "required": false,
+            "helpMarkDown": "Specify a list of work item IDs to filter work items for tagging. Use regex format to specify multiple IDs. Example: ^(1|2|3)$",
+            "pattern": "^(\\d+\\|)*\\d+$"
         },
         {
             "name": "enableAreaFiltering",

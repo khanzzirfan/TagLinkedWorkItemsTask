@@ -11,11 +11,35 @@ const apiVersion = '5.1';
 async function run() {
     try {
         const pipelineType = tl.getInput('pipelineType');
-        const workItemsData = pipelineType === 'Build' ? await getWorkItemsFromBuild() : await getWorkItemsFromRelease();
+        let workItemsData = pipelineType === 'Build' ? await getWorkItemsFromBuild() : await getWorkItemsFromRelease();
+        // if pipieline type is release the response looks like this
+        /**
+         *  "value": [
+                    {
+                        "id": "4149",
+                        "url": "https://infopowernz.visualstudio.com/_apis/wit/workItems/4149"
+                    }
+                ]
+         */
+        // filter the workitems data using the tl input filterWorkitemByIds and shortern the workitems data;
+        const filterWorkitemByIds = tl.getInput('filterWorkItemsById'); /** Read regex fromat availabe */
+        try {
+            if (filterWorkitemByIds) {
+                const regex = new RegExp(filterWorkitemByIds, 'g');
+                const filteredWorkItemsData = workItemsData.filter((workItem: any) => regex.test(workItem.id));
+                console.log(`Filtered work items data:`);
+                console.log(JSON.stringify(filteredWorkItemsData));
+                workItemsData = filteredWorkItemsData;
+            }
+        } catch (err) {
+            console.log('error in filtering workitems data', err);
+        }
+
         workItemsData.forEach(async (workItem: any) => {
             await tagWorkItem(workItem);
         });
     } catch (err) {
+        // @ts-ignore
         tl.setResult(tl.TaskResult.Failed, err.message);
     }
 }
@@ -37,6 +61,8 @@ async function getWorkItemsFromRelease() {
     const options = createGetRequestOptions(uri);
     const result = await request.get(options);
     console.log(`Collected ${result.count} work items for tagging from release`);
+    console.log(`Work items data: ${result}`);
+    console.log(JSON.stringify(result));
     return result.value;
 }
 

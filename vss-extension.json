@@ -1,35 +1,29 @@
 {
   "manifestVersion": 1,
-  "id": "work-items-tagging-task",
-  "version": "1.1.30",
-  "name": "Tag Linked Work Items",
-  "publisher": "true-sergeev",
-  "description": "Automatically add specified tag to all work items associated with build or release",
-  "categories": [
-    "Build and release"
-  ],
-  "links":{
+  "id": "work-items-tagging-task-ex-v2",
+  "version": "1.0.4",
+  "name": "Tag Release Work Items-Modal-V1",
+  "publisher": "irfankhan",
+  "description": "Automatically add specified tag to all work items associated with build or release. V1 is an extended version of the original task. it inclues filtering of workitems by regex",
+  "categories": ["Azure Pipelines"],
+  "links": {
     "repository": {
-      "uri" :"https://github.com/asergeev95/AddTagToBuildRelatedTasks"
+      "uri": "https://github.com/khanzzirfan/TagLinkedWorkItemsTask"
     },
     "issues": {
-      "uri": "https://github.com/asergeev95/AddTagToBuildRelatedTasks/issues"
+      "uri": "https://github.com/khanzzirfan/TagLinkedWorkItemsTask/issues"
     }
   },
   "icons": {
     "default": "images/logo.png"
   },
-  "public":true,
+  "public": true,
   "targets": [
     {
       "id": "Microsoft.VisualStudio.Services"
     }
   ],
-  "tags": [
-    "Release",
-    "Build",
-    "Work item tagging"
-  ],
+  "tags": ["Release", "Build", "Work item tagging"],
   "content": {
     "details": {
       "path": "extension.md"
@@ -59,11 +53,9 @@
   ],
   "contributions": [
     {
-      "id": "tag-linked-work-items",
+      "id": "work-items-tagging-task-ex-v1",
       "type": "ms.vss-distributed-task.task",
-      "targets": [
-        "ms.vss-distributed-task.tasks"
-      ],
+      "targets": ["ms.vss-distributed-task.tasks"],
       "properties": {
         "name": "TagLinkedWorkItems"
       }
